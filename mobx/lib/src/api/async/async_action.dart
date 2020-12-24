@@ -26,8 +26,14 @@ class AsyncAction {
 
   Future<R> run<R>(Future<R> Function() body) async {
     try {
+      print("ep");
       return await _zone.run(body);
-    } finally {
+    } 
+    catch(e){
+      print("error");
+      rethrow;
+    }
+    finally {
       // @katis:
       // Delay completion until next microtask completion.
       // Needed to make sure that all mobx state changes are
